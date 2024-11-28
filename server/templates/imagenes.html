@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <title>Proyecto Integrador</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div style="justify-items: center; padding: 15px;">
+            <p style="color: white; font-size: 50px;">Proyecto ingrador</p>
+            <p style="color: white; font-size: 25px;">Ingresa el texto:</p>
+            <div>
+                <input type="text" id="prompt" style="width: 550px; height: 100px;">
+            </div>
+            <img src="" alt="" id="image">
+            
+        </div>
+    </body>
+    <style>
+        body{
+            margin: 0;
+            background: black;
+            font-family: "Host Grotesk", serif;
+        }
+    </style>
+    <script>
+        var input = document.getElementById("prompt");
+        input.addEventListener("keypress", function(event) {
+        // If the user presses the "Enter" key on the keyboard
+        if (event.key === "Enter") {
+            document.getElementById('image').src='https://media.tenor.com/_62bXB8gnzoAAAAj/loading.gif'
+            // Cancel the default action, if needed
+            event.preventDefault();
+            console.log('press');
+            // Trigger the button element with a click
+            fetch("/image_generation",
+            {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'prompt':document.getElementById('prompt').value
+                })
+            })
+            .then(function(res){ return res.json(); })
+            .then(function(data){
+                document.getElementById('image').src=data['url']
+            })
+        }
+        });
+    </script>
+</html>
