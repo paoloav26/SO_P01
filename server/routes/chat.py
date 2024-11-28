@@ -18,10 +18,11 @@ def get_chat_index():
     )
 
     response = client.images.generate(
-        model="dall-e-3",
+        model="dall-e-2",
         prompt=args.get('prompt'),
-        size="1024x1024",
+        size="512x512",
         n=1,
     )
+    print(response)
     return jsonify({'url':response.data[0].url})
 
